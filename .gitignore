@@ -1,1 +1,3 @@
 tba_cache.sqlite
+tba_session.py
+__pycache__
