@@ -650,6 +650,42 @@ class Match(SimpleMatch):
     @staticmethod
     def is2015(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2015]:
         return breakdown is not None and "tote_points" in breakdown["blue"]
+    
+    @staticmethod
+    def is2016(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2016]:
+        return breakdown is not None and "breachPoints" in breakdown["blue"]
+    
+    @staticmethod
+    def is2017(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2017]:
+        return breakdown is not None and "autoFuelLow" in breakdown["blue"]
+    
+    @staticmethod
+    def is2018(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2018]:
+        return breakdown is not None and "autoOwnershipPoints" in breakdown["blue"]
+    
+    @staticmethod
+    def is2019(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2019]:
+        return breakdown is not None and "completeRocketRankingPoint" in breakdown["blue"]
+    
+    @staticmethod
+    def is2020(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2020]:
+        return breakdown is not None and "autoCellsBottom" in breakdown["blue"]
+    
+    @staticmethod
+    def is2022(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2022]:
+        return breakdown is not None and "quintetAchieved" in breakdown["blue"]
+    
+    @staticmethod
+    def is2023(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2023]:
+        return breakdown is not None and "autoCommunity" in breakdown["blue"]
+    
+    @staticmethod
+    def is2024(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2024]:
+        return breakdown is not None and "autoAmpNoteCount" in breakdown["blue"]
+    
+    @staticmethod
+    def is2025(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2025]:
+        return breakdown is not None and "autoReef" in breakdown["blue"]
 
     post_result_time = int | None
     videos: list[Video]
