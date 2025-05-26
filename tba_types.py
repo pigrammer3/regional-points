@@ -69,15 +69,17 @@ class Event(TypedDict):
     playoff_type_string: str | None
 
 
-class Team(TypedDict):
+class SimpleTeam(TypedDict):
     key: str
     team_number: int
     nickname: str
     name: str
-    school_name: str | None
     city: str | None
     state_prov: str | None
     country: str | None
+
+class Team(SimpleTeam):
+    school_name: str | None
     address: str | None
     postal_code: str | None
     gmaps_place_id: str | None
