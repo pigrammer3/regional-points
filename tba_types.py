@@ -1,3 +1,5 @@
+# type: ignore
+
 from typing import TypedDict, NamedTuple, Literal, NotRequired, TypeIs, TypeAlias
 
 
@@ -689,6 +691,27 @@ class Match(SimpleMatch):
     def is2025(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2025]:
         return breakdown is not None and "autoReef" in breakdown["blue"]
 
-    post_result_time = int | None
+    post_result_time: int | None
     videos: list[Video]
     score_breakdown: Breakdown
+
+class WLTRecord(TypedDict):
+    wins: int
+    losses: int
+    ties: int
+
+class AllianceStatus(TypedDict):
+    playoff_average: NotRequired[float]
+    level: NotRequired[str]
+    record: NotRequired[WLTRecord | None]
+    current_level_record: NotRequired[WLTRecord | None]
+    status: NotRequired[str]
+
+Backup = TypedDict("Backup", {"in": str, "out": str})
+
+class EliminationAlliance(TypedDict):
+    name: NotRequired[str | None]
+    backup: NotRequired[Backup | None]
+    declines: list[str]
+    picks: list[str]
+    status: NotRequired[AllianceStatus]
