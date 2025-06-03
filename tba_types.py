@@ -3,6 +3,22 @@
 from typing import TypedDict, NamedTuple, Literal, NotRequired, TypeIs, TypeAlias
 
 
+class APIStatus(TypedDict):
+    class APIStatusAppVersion(TypedDict):
+        min_app_version: int  # Internal use - Minimum application version required to correctly connect and process data.
+        latest_app_version: int  # Internal use - Latest application version available.
+
+    current_season: int  # Year of the current FRC season.
+    max_season: int  # Maximum FRC season year for all valid queries.
+    is_datafeed_down: bool  # True if the entire FMS API provided by FIRST is down.
+    down_events: list[
+        str
+    ]  # An array of strings containing event keys of any active events that are no longer updating.
+    ios: APIStatusAppVersion
+    android: APIStatusAppVersion
+    max_team_page: int  # Maximum team page number for valid queries.
+
+
 class TeamEventOPR(NamedTuple):
     team: str
     event: str
@@ -38,7 +54,7 @@ class Webcast(TypedDict):
     file: str | None
 
 
-class Event(TypedDict):
+class SimpleEvent(TypedDict):
     key: str
     name: str
     event_code: str
@@ -50,6 +66,9 @@ class Event(TypedDict):
     start_date: str
     end_date: str
     year: int
+
+
+class Event(SimpleEvent):
     short_name: str | None
     event_type_string: str
     week: int
@@ -80,6 +99,7 @@ class SimpleTeam(TypedDict):
     state_prov: str | None
     country: str | None
 
+
 class Team(SimpleTeam):
     school_name: str | None
     address: str | None
@@ -91,6 +111,13 @@ class Team(SimpleTeam):
     location_name: str | None
     website: NotRequired[str | None]
     rookie_year: int | None
+
+
+class TeamRobot(TypedDict):
+    year: int
+    robot_name: str
+    key: str
+    team_key: str
 
 
 class DistrictPoints(TypedDict):
@@ -654,39 +681,41 @@ class Match(SimpleMatch):
     @staticmethod
     def is2015(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2015]:
         return breakdown is not None and "tote_points" in breakdown["blue"]
-    
+
     @staticmethod
     def is2016(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2016]:
         return breakdown is not None and "breachPoints" in breakdown["blue"]
-    
+
     @staticmethod
     def is2017(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2017]:
         return breakdown is not None and "autoFuelLow" in breakdown["blue"]
-    
+
     @staticmethod
     def is2018(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2018]:
         return breakdown is not None and "autoOwnershipPoints" in breakdown["blue"]
-    
+
     @staticmethod
     def is2019(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2019]:
-        return breakdown is not None and "completeRocketRankingPoint" in breakdown["blue"]
-    
+        return (
+            breakdown is not None and "completeRocketRankingPoint" in breakdown["blue"]
+        )
+
     @staticmethod
     def is2020(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2020]:
         return breakdown is not None and "autoCellsBottom" in breakdown["blue"]
-    
+
     @staticmethod
     def is2022(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2022]:
         return breakdown is not None and "quintetAchieved" in breakdown["blue"]
-    
+
     @staticmethod
     def is2023(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2023]:
         return breakdown is not None and "autoCommunity" in breakdown["blue"]
-    
+
     @staticmethod
     def is2024(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2024]:
         return breakdown is not None and "autoAmpNoteCount" in breakdown["blue"]
-    
+
     @staticmethod
     def is2025(breakdown: Breakdown) -> TypeIs[MatchScoreBreakdown2025]:
         return breakdown is not None and "autoReef" in breakdown["blue"]
@@ -695,10 +724,12 @@ class Match(SimpleMatch):
     videos: list[Video]
     score_breakdown: Breakdown
 
+
 class WLTRecord(TypedDict):
     wins: int
     losses: int
     ties: int
+
 
 class AllianceStatus(TypedDict):
     playoff_average: NotRequired[float]
@@ -707,7 +738,9 @@ class AllianceStatus(TypedDict):
     current_level_record: NotRequired[WLTRecord | None]
     status: NotRequired[str]
 
+
 Backup = TypedDict("Backup", {"in": str, "out": str})
+
 
 class EliminationAlliance(TypedDict):
     name: NotRequired[str | None]
