@@ -11,8 +11,6 @@ for file in output_dir.glob("*.json"):
     file.unlink()
 
 for notebook in dir.glob("*.ipynb"):
-    if notebook.name.startswith("build_") or not notebook.name.startswith("attrition"):
-        continue
     print(f"Building {notebook.name}...")
     output = notebook.with_suffix(".py")
     if output.exists():
