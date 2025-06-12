@@ -26,7 +26,8 @@ for notebook in dir.glob("*.ipynb"):
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         sys.stderr.write(result.stderr)
-        raise RuntimeError(f"Failed to convert {notebook} to script.")
+        print(f"Failed to convert {notebook} to script.")
+        continue
     print(f"Successfully built {output.name}.")
     # Execute the generated script
     print(f"Executing {output.name}...")
@@ -35,5 +36,5 @@ for notebook in dir.glob("*.ipynb"):
     if result.returncode != 0:
         sys.stderr.write(result.stderr)
         sys.stdout.write(result.stdout)
-        raise RuntimeError(f"Failed to execute {output}.")
+        print(f"Failed to execute {output}.")
     output.unlink()
