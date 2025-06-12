@@ -42,9 +42,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: tba_cache.sqlite
-          key: ${{ runner.os }}-tba-cache
+          key: ${{ runner.os }}-tbacache
           restore-keys: |
-            ${{ runner.os }}-tba-cache
+            ${{ runner.os }}-tbacache
       - name: Run Build.py
         run: python ./build.py
         env:
