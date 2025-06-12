@@ -38,10 +38,17 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install dependencies
         run: python -m pip install -r ./requirements.txt
-      - name: Add build permissions
-        run: chmod +x ./build.py
+      - name: Cache requests
+        uses: actions/cache@v4
+        with:
+          path: tba_cache.sqlite
+          key: ${{ runner.os }}-tba-cache
+          restore-keys: |
+            ${{ runner.os }}-tba-cache
       - name: Run Build.py
         run: python ./build.py
+        env:
+          TBA_API_KEY: ${{ secrets.TBA_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

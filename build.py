@@ -11,7 +11,7 @@ for file in output_dir.glob("*.json"):
     file.unlink()
 
 for notebook in dir.glob("*.ipynb"):
-    if notebook.name.startswith("build_"):
+    if notebook.name.startswith("build_") or not notebook.name.startswith("attrition"):
         continue
     print(f"Building {notebook.name}...")
     output = notebook.with_suffix(".py")
@@ -34,5 +34,6 @@ for notebook in dir.glob("*.ipynb"):
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         sys.stderr.write(result.stderr)
+        sys.stdout.write(result.stdout)
         raise RuntimeError(f"Failed to execute {output}.")
     output.unlink()
