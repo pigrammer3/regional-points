@@ -11,6 +11,8 @@ for file in output_dir.glob("*.json"):
     file.unlink()
 
 for notebook in dir.glob("*.ipynb"):
+    if not notebook.name.startswith("regional"):
+        continue
     print(f"Building {notebook.name}...")
     output = notebook.with_suffix(".py")
     if output.exists():
