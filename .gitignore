@@ -1,3 +1,7 @@
 tba_cache.sqlite
-tba_session.py
 __pycache__
+build
+*.py
+!tba_types.py
+!build.py
+!tba_session.py

@@ -1,0 +1,6 @@
+nbconvert
+statbotics
+requests-cache
+tqdm
+matplotlib
+numpy
