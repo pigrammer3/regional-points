@@ -663,6 +663,9 @@ class Match(SimpleMatch):
             teleopReef: Reef
             totalPoints: int
             wallAlgaeCount: int
+    
+        red: MatchScoreBreakdown2025Alliance
+        blue: MatchScoreBreakdown2025Alliance
 
     Breakdown: TypeAlias = (
         MatchScoreBreakdown2015
@@ -748,3 +751,20 @@ class EliminationAlliance(TypedDict):
     declines: list[str]
     picks: list[str]
     status: NotRequired[AllianceStatus]
+
+
+class Ranking(TypedDict):
+    matches_played: int
+    qual_average: float
+    extra_stats: list[float]
+    sort_orders: list[float]
+    record: WLTRecord
+    rank: int
+    dq: int
+    team_key: str
+
+
+class Rankings(TypedDict):
+    rankings: list[Ranking]
+    extra_stats_info: list[dict]
+    sort_order_info: list[dict]
