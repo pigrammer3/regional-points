@@ -5,4 +5,5 @@ build
 !tba_types.py
 !build.py
 !tba_session.py
+!sb_types.py
 .env
