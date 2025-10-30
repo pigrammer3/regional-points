@@ -27,6 +27,10 @@ for notebook in dir.glob("*.ipynb"):
         print(f"Failed to convert {notebook} to script.")
         continue
     print(f"Successfully built {output.name}.")
+    with output.open("r", encoding="utf-8") as f:
+        content = f.read()
+        if not "if \"get_ipython\" not in globals()" in content:
+            print(f"Skipping {output.name}, no special output logic found.")
     # Execute the generated script
     print(f"Executing {output.name}...")
     cmd = ["python", str(output)]
