@@ -31,6 +31,7 @@ for notebook in dir.glob("*.ipynb"):
         content = f.read()
         if not "if \"get_ipython\" not in globals()" in content:
             print(f"Skipping {output.name}, no special output logic found.")
+            continue
     # Execute the generated script
     print(f"Executing {output.name}...")
     cmd = ["python", str(output)]
